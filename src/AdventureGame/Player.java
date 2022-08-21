@@ -1,5 +1,7 @@
 package AdventureGame;
 
+import java.util.Scanner;
+
 public class Player {
     private int ID;
     private String name;
@@ -7,13 +9,11 @@ public class Player {
     private int health;
     private int coin;
 
-    public Player(int ID, String name, int damage, int health, int coin) {
-        this.ID = ID;
+    public Player(String name) {
         this.name = name;
-        this.damage = damage;
-        this.health = health;
-        this.coin = coin;
     }
+
+    private Scanner input = new Scanner(System.in);
 
     public int getID() {
         return ID;
@@ -55,17 +55,62 @@ public class Player {
         this.coin = coin;
     }
 
-    public static void setChar() {  // Karakter secme methodu
+    Shop shop = new Shop(this);
 
+    public void selectChar() {  // Karakter secme methodu
+        boolean isChoose = true;
+        while (isChoose) {
+            System.out.println("Secmek istediginiz karakterin id sini giriniz");
+            int choose = input.nextInt();
+            switch (choose) {
+                case 1 -> {
+                    initPlayer(new Samurai());
+                    isChoose = false;
+                    break;
+                }
+                case 2 -> {
+                    initPlayer(new Archer());
+                    isChoose = false;
+                    break;
+                }
+                case 3 -> {
+                    initPlayer(new Knightly());
+                    isChoose = false;
+                    break;
+                }
+                default -> System.out.println("Yanlis secim yaptiniz, tekrar seciniz!");
+            }
+
+        }
+
+        System.out.println(this.name + " isimli karakterinizin ozellikleri\n###############################");
+        System.out.println("Kakterin ismi:\t" + this.getName()
+                + "\t\tKarakterin hasari:\t" + this.getDamage() + "\t\tKarakterin cani:\t"
+                + this.getHealth() + "\t\tKarakterin parasi:\t" + this.getCoin());
+    }
+
+    void initPlayer(GameChar gameChar) {
+        this.setName(gameChar.getName());
+        this.setDamage(gameChar.getDamage());
+        this.setHealth(gameChar.getHealth());
+        this.setCoin(gameChar.getCoin());
     }
 
 
-    public static void properties(Player[] players) {   // Karakter ozellikleri yazdırma methodu.Polymorphism!
-        for (Player player : players) {
-            System.out.println("Karakterin ID:\t" + player.getID() + " Kakterin ismi:\t" + player.getName()
-                    + "\t\tKarakterin hasari:\t" + player.getDamage() + " Karakterin cani:\t"
-                    + player.getHealth() + " Karakterin parasi:\t" + player.getCoin());
+    public static void properties(GameChar[] gameChars) {   // Karakter ozellikleri yazdırma methodu.Polymorphism!
+        for (GameChar gameChar : gameChars) {
+            System.out.println("Karakterin ID:\t" + gameChar.getID() + "\t\tKakterin ismi:\t" + gameChar.getName()
+                    + "\t\tKarakterin hasari:\t" + gameChar.getDamage() + "\t\tKarakterin cani:\t"
+                    + gameChar.getHealth() + "\t\tKarakterin parasi:\t" + gameChar.getCoin());
         }
+    }
+
+    Inventory inventory = new Inventory(this);
+
+    public void outOfInventory() {
+        this.inventory.weaponInventor();
+        this.setDamage(inventory.weaponInventor()+this.getDamage());
+        System.out.println(this.getDamage());
     }
 
 
