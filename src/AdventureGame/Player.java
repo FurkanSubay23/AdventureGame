@@ -8,12 +8,23 @@ public class Player {
     private int damage;
     private int health;
     private int coin;
+    private Inventory inventory;
 
     public Player(String name) {
         this.name = name;
+        this.inventory = new Inventory();     // Bunu yaparak null hatasından kurtulduk. Çünkü başka yerden nesne almadığımızdan burada null nesne oluşturuyoruz.
     }
 
+
     private Scanner input = new Scanner(System.in);
+
+    public Inventory getInventory() {
+        return this.inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
 
     public int getID() {
         return ID;
@@ -31,11 +42,12 @@ public class Player {
         this.name = name;
     }
 
-    public int getDamage() {
-        return damage;
+    public int getDamage() {    // Burada bunu yaparak hem silahtan 2 tane almayı hemde başka method kullanmadan direk buradan yapmayı sağladık.
+        return this.damage + this.getInventory().getWeapon().getDamage();
     }
 
     public void setDamage(int damage) {
+
         this.damage = damage;
     }
 
@@ -44,11 +56,14 @@ public class Player {
     }
 
     public void setHealth(int health) {
+        if (health <= 0) {
+            this.health = 0;
+        }
         this.health = health;
     }
 
     public int getCoin() {
-        return coin;
+        return this.coin;
     }
 
     public void setCoin(int coin) {
@@ -83,10 +98,14 @@ public class Player {
 
         }
 
-        System.out.println(this.name + " isimli karakterinizin ozellikleri\n###############################");
+       /* System.out.println(this.name + " isimli karakterinizin ozellikleri\n###############################");
+        System.out.println();
         System.out.println("Kakterin ismi:\t" + this.getName()
                 + "\t\tKarakterin hasari:\t" + this.getDamage() + "\t\tKarakterin cani:\t"
                 + this.getHealth() + "\t\tKarakterin parasi:\t" + this.getCoin());
+        System.out.println();
+
+        */
     }
 
     void initPlayer(GameChar gameChar) {
@@ -96,7 +115,6 @@ public class Player {
         this.setCoin(gameChar.getCoin());
     }
 
-
     public static void properties(GameChar[] gameChars) {   // Karakter ozellikleri yazdırma methodu.Polymorphism!
         for (GameChar gameChar : gameChars) {
             System.out.println("Karakterin ID:\t" + gameChar.getID() + "\t\tKakterin ismi:\t" + gameChar.getName()
@@ -105,13 +123,12 @@ public class Player {
         }
     }
 
-    Inventory inventory = new Inventory(this);
-
-    public void outOfInventory() {
-        this.inventory.weaponInventor();
-        this.setDamage(inventory.weaponInventor()+this.getDamage());
-        System.out.println(this.getDamage());
+    public void printcharacter() {
+        System.out.println(this.name + " isimli karakterinizin ozellikleri");
+        System.out.println("Karakterin silahi:\t" + this.getInventory().getWeapon().getName() + "\t\tKarakterin hasari:\t" + this.getDamage()
+                + "\t\tKarakterin zirhi:\t" + this.getInventory().getArmor().getName() + "\t\tKarakterin bloklama degeri:\t" + this.getInventory().getArmor().getDodge()
+                + "\t\tKarakterin cani:\t"
+                + this.getHealth() + "\t\tKarakterin parasi:\t" + this.getCoin());
+        System.out.println();
     }
-
-
 }

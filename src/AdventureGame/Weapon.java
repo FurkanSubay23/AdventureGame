@@ -14,22 +14,15 @@ public class Weapon {
         this.name = name;
     }
 
-    public static Weapon[] weap() {        // Silahlarımızı böyle yaptırıyoruz.Dizi kullanarak
-        Weapon[] weapons = {new Weapon("Tabanca", 1, 2, 10),
+    public static Weapon[] weapons() {        // Silahlarımızı böyle yaptırıyoruz.Dizi kullanarak
+        Weapon[] weapons = {new Weapon("Tabanca", 1, 2, 15),
                 new Weapon("Kilic", 2, 3, 35),
                 new Weapon("Tufek", 3, 7, 45)};
         return weapons;
     }
-
-    public static void print(Weapon[] weapons) {    // Bu method weaponları yazdırır.
-        for (Weapon weapon : weapons) {
-            System.out.println("Silahin ID si:\t" + weapon.getID() + "\tSilahin ismi\t" + weapon.getName()
-                    + "\t\tSilahin hasari\t" + weapon.getDamage() + "\tSilahin degeri\t" + weapon.getCoin());
-        }
-    }
-
     public static Weapon getWeaponObjectID(int id) { // Bu method geriye id si eşit bir weapon dondurur.
-        for (Weapon w : weap()) {
+        // Weapon weapon=null; diyip nesneyi döndürebiliriz.
+        for (Weapon w : weapons()) {
             if (id == w.getID()) {
                 return w;
             }
@@ -55,7 +48,7 @@ public class Weapon {
     }
 
     public int getDamage() {
-        return damage;
+        return this.damage;
     }
 
     public void setDamage(int damage) {
@@ -63,7 +56,7 @@ public class Weapon {
     }
 
     public int getCoin() {
-        return coin;
+        return this.coin;
     }
 
     public void setCoin(int coin) {
