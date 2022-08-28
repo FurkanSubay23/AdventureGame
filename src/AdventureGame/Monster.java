@@ -46,12 +46,12 @@ public abstract class Monster {
     }
 
     public int getHealth() {
-        return health;
+        return this.health;
     }
 
     public void setHealth(int health) {
         if (health <= 0) {
-            this.health = 0;
+            health=0;
         }
         this.health = health;
     }

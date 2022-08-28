@@ -7,8 +7,10 @@ public class Player {
     private String name;
     private int damage;
     private int health;
+    private int orjinalHealth;
     private int coin;
     private Inventory inventory;
+
 
     public Player(String name) {
         this.name = name;
@@ -43,6 +45,9 @@ public class Player {
     }
 
     public int getDamage() {    // Burada bunu yaparak hem silahtan 2 tane almayı hemde başka method kullanmadan direk buradan yapmayı sağladık.
+        return this.damage;
+    }
+    public int getTotalDamage(){
         return this.damage + this.getInventory().getWeapon().getDamage();
     }
 
@@ -60,6 +65,14 @@ public class Player {
             this.health = 0;
         }
         this.health = health;
+    }
+
+    public int getOrjinalHealth() {
+        return orjinalHealth;
+    }
+
+    public void setOrjinalHealth(int orjinalHealth) {
+        this.orjinalHealth = orjinalHealth;
     }
 
     public int getCoin() {
@@ -112,6 +125,7 @@ public class Player {
         this.setName(gameChar.getName());
         this.setDamage(gameChar.getDamage());
         this.setHealth(gameChar.getHealth());
+        this.setOrjinalHealth(gameChar.getHealth());
         this.setCoin(gameChar.getCoin());
     }
 
@@ -125,7 +139,7 @@ public class Player {
 
     public void printcharacter() {
         System.out.println(this.name + " isimli karakterinizin ozellikleri");
-        System.out.println("Karakterin silahi:\t" + this.getInventory().getWeapon().getName() + "\t\tKarakterin hasari:\t" + this.getDamage()
+        System.out.println("Karakterin silahi:\t" + this.getInventory().getWeapon().getName() + "\t\tKarakterin hasari:\t" + this.getTotalDamage()
                 + "\t\tKarakterin zirhi:\t" + this.getInventory().getArmor().getName() + "\t\tKarakterin bloklama degeri:\t" + this.getInventory().getArmor().getDodge()
                 + "\t\tKarakterin cani:\t"
                 + this.getHealth() + "\t\tKarakterin parasi:\t" + this.getCoin());
