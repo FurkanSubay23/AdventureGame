@@ -4,4 +4,3 @@
 
 ### Şimdiden teşekkürler.
 
-[patika](https://app.patika.dev/)
