@@ -24,6 +24,13 @@ public class Game {
         Location location = null;
         while (true) {
             player.printcharacter();
+            // Tum bolumlerdeki odullerı almıssa oyunu bıtırmıstır. Alttaki if bloguda oyunu bıtırme blogu.
+            if (player.getInventory().getWater().equals("Water") && player.getInventory().getFirewood().equals("Firewood") && player.getInventory().getFood().equals("Food") && player.getInventory().getSnake().equals("treasury")){
+                System.out.println("TEBRIKLER");
+                System.out.println("!!!!!!!!!!!!!!!!!!!########################");
+                System.out.println("TUM BOLUMLERI GECEREK OYUNU BITIRDINIZ. BU SISLI VE KARANLIK DUNYADAN KURTULDUNUZ");
+                break;
+            }
             System.out.println("Gitmek istediginiz bolgenin ID sini giriniz");
             System.out.println("0\tCikis\n1\tGuvenli ev\n2\tEsya Dukkani\n3\tMagara\n4\tOrman\n5\tNehir\n6\tMaden");
             int selectLocation = input.nextInt();
@@ -78,12 +85,12 @@ public class Game {
                 System.out.println("Game Over, WHY GIVE UP");
                 break;
             }
-            if (isPassLocation) {
-                if (!location.onLocation()) {
-                    System.out.println("GAME OVER!");
-                    break;
+                if (isPassLocation) {
+                    if (!location.onLocation()) {
+                        System.out.println("GAME OVER!");
+                        break;
+                    }
                 }
-            }
         }
     }
 }

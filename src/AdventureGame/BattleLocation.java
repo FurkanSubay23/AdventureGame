@@ -18,6 +18,7 @@ public abstract class BattleLocation extends Location {
     @Override
     public boolean onLocation() {
         int obsRandom = randomMonster();
+        System.out.println(obsRandom);
         System.out.println("Burada yasamak icin oldurmelisin. Peki sen buna hazir misin?");
         // System.out.println("Dikkatli ol burada "+this.monster.getName()+" isimli canvarlar var");
         System.out.println("Ayrica burada " + obsRandom + " adet " + this.monster.getName() + " isimli canavar var");
@@ -42,7 +43,7 @@ public abstract class BattleLocation extends Location {
 
     public boolean war(int obsRandom) {
         int heal = getMonster().getHealth();
-        int finishMonster=0;
+        int finishMonster = 0;
         for (int i = 0; i < obsRandom; i++) {
             int firstHit = firstHit();
             this.getMonster().setHealth(heal); // Her bir for döngüsü başa aldığında canavarın canını fullemek için yazıldı.
@@ -101,15 +102,16 @@ public abstract class BattleLocation extends Location {
                 }
                 if (this.getMonster().getHealth() <= 0) {
                     if (this.getName().equals("Maden")) {       // Lokasyon maden olursa ki if blogu ve methodu.
+                        Random snake = new Random();
                         snakeAward();
-                    }
-                    else {
+                    } else {
                         this.getPlayer().setCoin(this.getMonster().getAward() + this.getPlayer().getCoin());      // Canavari oldurdukten sonra gelen parayi bakiyeye ekliyoruz.
                         System.out.println("Yeni bakiyeniz: " + this.getPlayer().getCoin());
                     }
-
+                    finishMonster++;
                 }
-                if (i == obsRandom - 1 && this.getMonster().getHealth() <= 0) {             // Böyle diyerek tum canavarların olduruldugunde verilen mesajı içeriyor.
+                if (finishMonster == (obsRandom) && this.getMonster().getHealth() <= 0) {             // Böyle diyerek tum canavarların olduruldugunde verilen mesajı içeriyor.
+                    System.out.println(finishMonster);
                     System.out.println("Tebrikler " + this.getName() + " isimli lokasyon da bulunan tum canavarlari oldurdunuz!");
                     locationAward();
                     return true;
@@ -121,10 +123,10 @@ public abstract class BattleLocation extends Location {
 
     public void snakeAward() {
         Random a = new Random();
-        int percentage = a.nextInt() * 100;
-        int gun = a.nextInt() * 100;
-        int shield = a.nextInt() * 100;
-        int money = a.nextInt() * 100;
+        int percentage = a.nextInt(100) ;
+        int gun = a.nextInt(100);
+        int shield = a.nextInt(100);
+        int money = a.nextInt(100);
         if (percentage < 15) {          // Silah if bloğu
             if (gun < 50) {
                 if (isWantWeapon("Tabanca")) {
@@ -161,6 +163,7 @@ public abstract class BattleLocation extends Location {
             awardMoney(money);
         } else {
             System.out.println("Uzgunum yilan bos cikti.Hicbir sey kazanamadiniz!!!");
+            System.out.println();
         }
     }
 
@@ -184,9 +187,11 @@ public abstract class BattleLocation extends Location {
         System.out.println("2\tHayir");
         System.out.println();
         int isYes = input.nextInt();
+        input.nextLine();       // Bunu diger alıcagımız deger String oldugu ıcın karışmaması adına yapıyoruz.
         while (isYes < 1 || isYes > 2) {
             System.out.println("Yanlis secim tekrar deneyin");
-            isYes = input.nextInt();
+            isYes = input.nextInt();            // Bunu diger alıcagımız deger String oldugu ıcın karışmaması adına yapıyoruz.
+            input.nextLine();
         }
         if (isYes == 2) {
             return false;
@@ -201,9 +206,11 @@ public abstract class BattleLocation extends Location {
         System.out.println("2\tHayir");
         System.out.println();
         int isYes = input.nextInt();
+        input.nextLine();       // Bunu diger alıcagımız deger String oldugu ıcın karışmaması adına yapıyoruz.
         while (isYes < 1 || isYes > 2) {
             System.out.println("Yanlis secim tekrar deneyin");
             isYes = input.nextInt();
+            input.nextLine();       // Bunu diger alıcagımız deger String oldugu ıcın karışmaması adına yapıyoruz.
         }
         if (isYes == 2) {
             return false;
