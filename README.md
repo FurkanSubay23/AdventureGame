@@ -1,6 +1,6 @@
 # AdventureGame
-## Macera Oyununa Hosgeldiniz
-### Bu oyun OOP mantığını sonuna kadar işleyerek yapılmış bir oyundur.
+## Welcome to Adventure Game
+### This game is a game made by processing OOP logic to the end.
 
-### Şimdiden teşekkürler.
+### Thank You
 
